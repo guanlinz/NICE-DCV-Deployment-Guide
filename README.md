@@ -103,7 +103,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 
     | :warning: WARNING                                                                                                                                                                      |
     | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | Warning: If the below installation error shows: You appear to be running an X server; please exit X before installing centos,restart the gdm by **sudo systemctl restart gdm.service** |
+    |If the below installation error shows: You appear to be running an X server; please exit X before installing centos,restart the gdm by **sudo systemctl restart gdm.service** |
 
   - Run the self-install script as follows to install the GRID driver
     ```
@@ -141,7 +141,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 
   | :warning: WARNING |
   | :---------------- |
-  | Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file: ** sudo rm -rf /etc/X11/XF86Config* ** |
+  | Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file: sudo rm -rf /etc/X11/XF86Config* |
 
 - (Optional) Check if **/etc/X11** has the right permission,if not,chmod it
 
