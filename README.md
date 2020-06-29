@@ -6,7 +6,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 
 - EC2 Instance
   - Region：**cn-north-1(Beijing)**
-  - Instance Type: g4dn.xlarge
+  - Instance Type: **g4dn.xlarge**
   - AMI ID: **ami-088b61f50b18f807e**
   - OS Version: **CentOS Linux release 7.8.2003 (Core)**
   - EBS Volume(Type): **256GB(gp2)**
@@ -217,7 +217,11 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 
 - Download the NICE DCV Client: **https://download.nice-dcv.com/**
 - Enter the EC2 instance host / ip, and linux user, password
-- Warning: If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834**
+
+- | :warning: WARNING     |
+  | :-------------------- |
+  |   Warning: If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834**|
+  <!-- Warning: If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834** -->
 
 ## Screenshots
 
