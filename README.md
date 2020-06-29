@@ -101,7 +101,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
     sudo chmod +x NVIDIA-Linux-x86_64\*.run
     ```
 
-    | :exclamation: WARNING                                                                                                                                                                  |
+    | :warning: WARNING                                                                                                                                                                      |
     | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
     | Warning: If the below installation error shows: You appear to be running an X server; please exit X before installing centos,restart the gdm by **sudo systemctl restart gdm.service** |
 
@@ -139,43 +139,35 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
       nvidia-xconfig --preserve-busid --enable-all-gpus
     ```
 
-    | :exclamation: WARNING |
-    | :-------------------- |
+  | :warning: WARNING |
+  | :---------------- |
+  | Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file: **sudo rm -rf /etc/X11/XF86Config* ** |
 
+- Optinal: Check if **/etc/X11** has the right permission,if not,chmod it
 
-    | Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file:
+  ```
+  sudo chmod +x /etc/X11
+  ```
 
+- Restart X server
+  ```
+  sudo systemctl isolate multi-user.target
+  sudo systemctl isolate graphical.target
+  ```
+- To verify that OpenGL hardware rendering is available
+
+  - ```
+    sudo DISPLAY=:0 XAUTHORITY=$(ps aux | grep "X.*\-auth" | grep -v grep | sed -n 's/.*-auth \([^ ]\+\).*/\1/p') glxinfo | grep -i "opengl.*version"
     ```
-    sudo rm -rf /etc/X11/XF86Config*
+  - The following shows example output if OpenGL hardware rendering is available.
     ```
-
-    |
-
-  - Optinal: Check if **/etc/X11** has the right permission,if not,chmod it
-
+    OpenGL core profile version string: 4.4.0 NVIDIA 390.75
+    OpenGL core profile shading language version string: 4.40 NVIDIA via Cg compiler
+    OpenGL version string: 4.6.0 NVIDIA 390.75
+    OpenGL shading language version string: 4.60 NVIDIA
+    OpenGL ES profile version string: OpenGL ES 3.2 NVIDIA 390.75
+    OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
     ```
-    sudo chmod +x /etc/X11
-    ```
-
-  - Restart X server
-    ```
-    sudo systemctl isolate multi-user.target
-    sudo systemctl isolate graphical.target
-    ```
-  - To verify that OpenGL hardware rendering is available
-
-    - ```
-      sudo DISPLAY=:0 XAUTHORITY=$(ps aux | grep "X.*\-auth" | grep -v grep | sed -n 's/.*-auth \([^ ]\+\).*/\1/p') glxinfo | grep -i "opengl.*version"
-      ```
-    - The following shows example output if OpenGL hardware rendering is available.
-      ```
-      OpenGL core profile version string: 4.4.0 NVIDIA 390.75
-      OpenGL core profile shading language version string: 4.40 NVIDIA via Cg compiler
-      OpenGL version string: 4.6.0 NVIDIA 390.75
-      OpenGL shading language version string: 4.60 NVIDIA
-      OpenGL ES profile version string: OpenGL ES 3.2 NVIDIA 390.75
-      OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
-      ```
 
 - Install the NICE DCV Server
 
@@ -229,7 +221,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 - Download the NICE DCV Client: **https://download.nice-dcv.com/**
 - Enter the EC2 instance host / ip, and linux user, password
 
-  | :exclamation: WARNING                                                                                                        |
+  | :warning: WARNING                                                                                                            |
   | :--------------------------------------------------------------------------------------------------------------------------- |
   | If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834** |
 
