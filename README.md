@@ -1,4 +1,5 @@
 # NICE DCV Remote Desktop Deployment Guide For CentOS 7.x
+NICE DCV is a high-performance remote display protocol that provides a secure way to deliver remote desktops and application streaming in both Linux and Windows enviroment created by NICE - an AWS Company.
 
 ## Test Enviroment
 
@@ -12,9 +13,11 @@
   - GPU Details
     - Product Name: **NVIDIA Tesla T4**
 
-## Related Documantations
-  - NICE DCV: **https://docs.aws.amazon.com/dcv/index.html**
-  - Install NVIDIA Driver for EC2 Linux: **https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/install-nvidia-driver.html**
+## Related Documentations
+
+- NICE DCV: **https://docs.aws.amazon.com/dcv/index.html**
+- Install NVIDIA Driver for EC2 Linux: **https://docs.amazonaws.cn/en_us/AWSEC2/latest/UserGuide/install-nvidia-driver.html**
+- NICE DCV Client Download Link: **https://download.nice-dcv.com/**
 
 ## Deploy
 
@@ -33,17 +36,18 @@
   sudo systemctl set-default graphical.target
   sudo systemctl isolate graphical.target
   ps aux | grep X | grep -v grep
+  ```
 
-  /*
-  if works well,it should output:
-    root      1891  0.0  0.7 277528 30448 tty7     Ssl+ 10:59   0:00 /usr/bin/Xorg :0 -background none -verbose -auth /run/gdm/auth-for-gdm-wltseN/database -seat seat0 vt7
-  */
+  if works well, it should get output like this:
+
+  ```
+  root      1891  0.0  0.7 277528 30448 tty7     Ssl+ 10:59   0:00 /usr/bin/Xorg :0 -background none -verbose -auth /run/gdm/auth-for-gdm-wltseN/database -seat seat0 vt7
   ```
 
 - Install the glxinfo Utility
 
   ```
-    sudo yum install glx-utils
+  sudo yum install glx-utils
   ```
 
 - Install NVIDIA Drivers for Linux
@@ -122,7 +126,7 @@
   - ```
     nvidia-xconfig --preserve-busid --enable-all-gpus
     ```
-  - Warning: Make sure that your server does not have the legacy /etc/X11/XF86Config file. If it does, nvidia-xconfig updates that configuration file instead of generating the required /etc/X11/xorg.conf file. Run the following command to remove the legacy XF86Config file:
+  - Warning: Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file:
 
     ```
     rm -rf /etc/X11/XF86Config*
@@ -142,7 +146,7 @@
   - To verify that OpenGL hardware rendering is available
 
     - ```
-       sudo DISPLAY=:0 XAUTHORITY=$(ps aux | grep "X.*\-auth" | grep -v grep | sed -n 's/.*-auth \([^ ]\+\).*/\1/p') glxinfo | grep -i "opengl.*version"
+      sudo DISPLAY=:0 XAUTHORITY=$(ps aux | grep "X.*\-auth" | grep -v grep | sed -n 's/.*-auth \([^ ]\+\).*/\1/p') glxinfo | grep -i "opengl.*version"
       ```
     - The following shows example output if OpenGL hardware rendering is available.
       ```
@@ -191,14 +195,21 @@
       ```
 
 - Managing NICE DCV Sessions
-  - Example commond for setting linux user **ec2-user** password,and create a **console** session named **sample-session** for user **ec2-user**
+  - Setting linux user **ec2-user** password 
+    ```
+    sudo passwd ec2-user**
+    ```
+  - Example commond for create a **console** session named **sample-session** for user **ec2-user**
     - ```
-      su passwd ec2-user
       sudo dcv create-session --type=console --owner ec2-user sample-session
       ```
 
 ## Connect with NICE DCV Client
 
-- Download Link: **https://download.nice-dcv.com/**
-- Enter the EC2 instance host name / ip, and linux user, password
-- Warning: If connection failed,check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834**
+- Download the NICE DCV Client: **https://download.nice-dcv.com/**
+- Enter the EC2 instance host / ip, and linux user, password
+- Warning: If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834**
+
+## Screenshots
+
+![screenshot](./screenshot.jpg)
