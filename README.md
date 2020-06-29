@@ -101,7 +101,11 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
     sudo chmod +x NVIDIA-Linux-x86_64\*.run
     ```
 
-  - Warning: If the below installation error shows: You appear to be running an X server; please exit X before installing centos,restart the gdm by **sudo systemctl restart gdm.service**
+    | :exclamation: WARNING                                                                                                                                                                  |
+    | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Warning: If the below installation error shows: You appear to be running an X server; please exit X before installing centos,restart the gdm by **sudo systemctl restart gdm.service** |
+
+  - Run the self-install script as follows to install the GRID driver
     ```
     sudo /bin/sh ./NVIDIA-Linux-x86_64\*.run
     ```
@@ -132,13 +136,20 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 - Install and Configure NVIDIA Drivers
 
   - ```
-    nvidia-xconfig --preserve-busid --enable-all-gpus
+      nvidia-xconfig --preserve-busid --enable-all-gpus
     ```
-  - Warning: Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file:
+
+    | :exclamation: WARNING |
+    | :-------------------- |
+
+
+    | Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file:
 
     ```
     sudo rm -rf /etc/X11/XF86Config*
     ```
+
+    |
 
   - Optinal: Check if **/etc/X11** has the right permission,if not,chmod it
 
@@ -218,10 +229,9 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 - Download the NICE DCV Client: **https://download.nice-dcv.com/**
 - Enter the EC2 instance host / ip, and linux user, password
 
-- | :warning: WARNING     |
-  | :-------------------- |
-  |   Warning: If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834**|
-  <!-- Warning: If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834** -->
+  | :exclamation: WARNING                                                                                                        |
+  | :--------------------------------------------------------------------------------------------------------------------------- |
+  | If connection failed, check if the **firewalld** service in CentOS is enabled, if it does, disable it or allow port **8834** |
 
 ## Screenshots
 
