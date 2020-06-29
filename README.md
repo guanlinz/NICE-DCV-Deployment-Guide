@@ -14,7 +14,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
   - GPU Details
     - Product Name: **NVIDIA Tesla T4**
 
-## Related Documentations
+## Related Resources
 
 - NICE DCV: **https://docs.aws.amazon.com/dcv/index.html**
 - Install NVIDIA Driver for EC2 Linux: **https://docs.amazonaws.cn/en_us/AWSEC2/latest/UserGuide/install-nvidia-driver.html**
