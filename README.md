@@ -1,4 +1,5 @@
 # NICE DCV Remote Desktop Deployment Guide For CentOS 7.x
+
 NICE DCV is a high-performance remote display protocol that provides a secure way to deliver remote desktops and application streaming in both Linux and Windows enviroment created by NICE - an AWS Company.
 
 ## Test Enviroment
@@ -82,15 +83,22 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
     GRUB_CMDLINE_LINUX="rdblacklist=nouveau"
     ```
 
-  - ```
+  - Rebuild the Grub Configuration
+
+    ```
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+    ```
+
+  - Download the GRID driver installation utility
+
+    ```
     aws s3 cp --recursive s3://ec2-linux-nvidia-drivers/g4/latest/ . --region us-east-1 --no-sign-request
     ```
 
   - Add permission to driver installation utility that you just downloaded
 
     ```
-    chmod +x NVIDIA-Linux-x86_64\*.run
+    sudo chmod +x NVIDIA-Linux-x86_64\*.run
     ```
 
   - Warning: If the below installation error shows: You appear to be running an X server; please exit X before installing centos,restart the gdm by **sudo systemctl restart gdm.service**
@@ -129,7 +137,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
   - Warning: Make sure that your server does not have the legacy **/etc/X11/XF86Config** file. If it does, **nvidia-xconfig** updates that configuration file instead of generating the required **/etc/X11/xorg.conf** file. Run the following command to remove the legacy XF86Config file:
 
     ```
-    rm -rf /etc/X11/XF86Config*
+    sudo rm -rf /etc/X11/XF86Config*
     ```
 
   - Optinal: Check if **/etc/X11** has the right permission,if not,chmod it
@@ -168,7 +176,8 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
     sudo yum install nice-dcv-server-2020.0.8428-1.el7.x86_64.rpm
     sudo yum install nice-xdcv-2020.0.296-1.el7.x86_64.rpm
     ```
-    ```
+
+  - ```
     (optional)sudo yum install nice-xdcv-2020.0.296-1.el7.x86_64.rpm
     (optional)sudo yum install nice-dcv-gl-2020.0.759-1.el7.x86_64.rpm
     (optional)sudo yum install nice-dcv-simple-external-authenticator-2020.0.87-1.el7.x86_64.rpm
@@ -176,7 +185,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
 
 - Post-Installation Checks
 
-  - Please make sure that your instance has enable security group rule for port **8843**
+  - Please make sure that your instance has enabled security group rule for port **8843**
   - Verify **dcv** user can access the X server
     - ```
       sudo DISPLAY=:0 XAUTHORITY=$(ps aux | grep "X.*\-auth" | grep -v grep | sed -n 's/.*-auth \([^ ]\+\).*/\1/p') xhost | grep "SI:localuser:dcv$"
@@ -195,7 +204,7 @@ NICE DCV is a high-performance remote display protocol that provides a secure wa
       ```
 
 - Managing NICE DCV Sessions
-  - Setting linux user **ec2-user** password 
+  - Setting linux user **ec2-user** password
     ```
     sudo passwd ec2-user**
     ```
